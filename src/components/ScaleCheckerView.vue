@@ -1,9 +1,10 @@
 <template>
-  <div class="scale-piano">
+  <v-responsive class="pt-1 mx-auto" max-width="1100">
     <!-- コントロール -->
-    <v-row class="mb-4" align="center" no-gutters>
-      <v-col cols="12" md="3" class="pr-md-3 mb-2 mb-md-0">
+    <v-row class="mb-4 g-2" align="center">
+      <v-col cols="3">
         <v-select
+          class="w-100"
           v-model="root"
           :items="NOTE_NAMES"
           label="ルート音"
@@ -13,8 +14,9 @@
         />
       </v-col>
 
-      <v-col cols="12" md="5" class="pr-md-3 mb-2 mb-md-0">
+      <v-col cols="6">
         <v-select
+          class="w-100"
           v-model="scaleName"
           :items="Object.keys(SCALES)"
           label="スケール"
@@ -24,8 +26,9 @@
         />
       </v-col>
 
-      <v-col cols="12" md="4">
+      <v-col cols="3">
         <v-select
+          class="w-100"
           v-model="octaves"
           :items="[1,2,3]"
           label="オクターブ"
@@ -51,14 +54,16 @@
     </v-row>
 
     <!-- 表示コンポーネント -->
-    <PianoKeyboard
-      :root="root"
-      :scale-name="scaleName"
-      :octaves="octaves"
-      :show-labels="showLabels"
-      :note-names="NOTE_NAMES"
-      :scales="SCALES"
-    />
+    <div class="keyboard-wrapper">
+      <PianoKeyboard
+        :root="root"
+        :scale-name="scaleName"
+        :octaves="octaves"
+        :show-labels="showLabels"
+        :note-names="NOTE_NAMES"
+        :scales="SCALES"
+      />
+    </div>
 
     <!-- <StaffNotation
       v-else
@@ -67,28 +72,27 @@
       :note-names="NOTE_NAMES"
       :scales="SCALES"
     /> -->
-
-    <!-- ヘルプモーダル -->
-    <HelpModal v-model="showHelp" />
-  </div>
+  </v-responsive>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import PianoKeyboard from './PianoKeyboard.vue'
-import HelpModal from './HelpModal.vue' // 追加：ヘルプモーダル
-// StaffNotation を別ファイルで定義している場合はインポートしてください
 // import StaffNotation from './StaffNotation.vue'
 
 import { NOTE_NAMES, SCALES } from '../constants/music.js'
 
 // コントロールの状態
-const displayMode = ref('keyboard')
+// const displayMode = ref('keyboard')
 const root = ref('C')
 const scaleName = ref('メジャー')
 const octaves = ref(2)
 </script>
 
 <style>
-
+.keyboard-wrapper{
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+}
 </style>

@@ -4,15 +4,20 @@
       <v-card-title class="text-h6">
         使い方ヘルプ
       </v-card-title>
+
       <v-card-text class="pt-2">
-        <ol class="ml-4">
-          <li>「ルート音」で基準音（C, D, E…）を選択します。</li>
-          <li>「スケール」でメジャー / マイナーなどを選択します。</li>
-          <li>「オクターブ」で鍵盤の表示幅を調整します。</li>
-          <li>「ラベルを表示する」をONにすると鍵盤上にノート名が表示されます。</li>
-          <!-- <li>（将来）表示モードで「鍵盤 / 五線譜」を切り替えできます。</li> -->
-        </ol>
+        <v-list density="comfortable" lines="one">
+          <v-list-item
+            v-for="(t, i) in tips"
+            :key="i"
+            :title="t"
+            prepend-icon="mdi-check-circle"
+            base-color="success"
+            class="py-2"
+          />
+        </v-list>
       </v-card-text>
+
       <v-card-actions>
         <v-spacer />
         <v-btn variant="flat" color="primary" @click="model = false">閉じる</v-btn>
@@ -24,7 +29,6 @@
 <script setup>
 import { computed } from 'vue'
 
-// v-model 用（親：<HelpModal v-model="showHelp" />）
 const props = defineProps({
   modelValue: { type: Boolean, required: true }
 })
@@ -34,4 +38,11 @@ const model = computed({
   get: () => props.modelValue,
   set: (v) => emit('update:modelValue', v)
 })
+
+const tips = [
+  '「ルート音」で基準音（C, D, E…）を選択します。',
+  '「スケール」でメジャー / マイナーなどを選択します。',
+  '「オクターブ」で鍵盤の表示幅を調整します。',
+  '「ラベルを表示する」をONにすると鍵盤上にノート名が表示されます。'
+]
 </script>

@@ -75,6 +75,13 @@ const pitchClassesInScale = computed(() => {
   const rootPitchClassNumber = props.noteNames.indexOf(props.root)
 
   const set = new Set()
+
+  // 例外ケースで早期リターン
+  if (!mask || rootPitchClassNumber < 0) {
+    console.warn('[PianoKeyboard] unknown scale or root:', props.scaleName, props.root)
+    return set
+  }
+
   for (let i = 0; i < 12; i++) {
     // ルート音を0に揃えるようにビットマスクをシフト
     const noteBit = mask[(i - rootPitchClassNumber + 12) % 12]
@@ -109,7 +116,7 @@ const blackStyleForIndex = (index) => {
 
 <style scoped>
 .keyboard {
-  --white-w: 56px;
+  --white-w: 50px;
   --white-h: 200px;
   --black-w: 34px;
   --black-h: 120px;

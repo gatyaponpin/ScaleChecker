@@ -1,6 +1,6 @@
 <template>
   <v-app>
-     <v-app-bar app color="primary" density="comfortable">
+    <v-app-bar app color="primary" density="comfortable">
       <v-app-bar-title class="text-h6 text-white">
         Scale Checker
       </v-app-bar-title>
@@ -17,8 +17,8 @@
       </v-btn>
     </v-app-bar>
 
-    <v-main>
-      <v-container class="d-flex align-center justify-center" style="height: 100vh;">
+    <v-main class="d-flex align-center justify-center">
+      <v-container class="py-8">
         <ScaleChecker />
       </v-container>
     </v-main>
@@ -27,11 +27,9 @@
   </v-app>
 </template>
 
-<script>
-import ScaleChecker from '@/components/ScaleCheckerView.vue'
-export default { components: { ScaleChecker } }
-
+<script setup>
 import { ref } from 'vue'
+import ScaleChecker from '@/components/ScaleCheckerView.vue'
 import HelpModal from './components/HelpModal.vue'
 
 const showHelp = ref(false)
