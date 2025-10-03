@@ -48,17 +48,6 @@
         />
       </v-col>
       -->
-
-      <v-col cols="12" class="d-flex align-center ga-4 mt-2">
-        <v-switch
-          v-model="showLabels"
-          density="comfortable"
-          color="primary"
-          inset
-          hide-details
-          label="ラベルを表示する"
-        />
-      </v-col>
     </v-row>
 
     <!-- 表示コンポーネント -->
@@ -98,10 +87,6 @@ const displayMode = ref('keyboard')
 const root = ref('C')
 const scaleName = ref('メジャー')
 const octaves = ref(2)
-const showLabels = ref(true)
-
-// 追加：ヘルプ表示制御
-const showHelp = ref(false)
 </script>
 
 <style>
