@@ -72,6 +72,7 @@
       :note-names="NOTE_NAMES"
       :scales="SCALES"
     /> -->
+    <div class="text-medium-emphasis text-caption mt-2">● は選択スケールに含まれるキー</div>
   </v-responsive>
 </template>
 
@@ -93,6 +94,9 @@ const octaves = ref(2)
 .keyboard-wrapper{
   overflow-x: auto;
   overflow-y: hidden;
-  max-width: 100%;
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  justify-content: center;
 }
 </style>

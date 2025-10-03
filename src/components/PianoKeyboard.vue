@@ -2,8 +2,9 @@
   <v-sheet
     class="keyboard mx-auto elevation-2"
     rounded="lg"
-    :style="{ maxWidth: `calc(${whiteKeys.length} * var(--white-w))` }"
+    :style="{ '--white-count': whiteKeys.length }"
   >
+    <div class="kbd-lane">
     <!-- White keys -->
     <div class="whites">
       <div
@@ -25,10 +26,10 @@
         :style="blackStyleForIndex(i)"
       >
         <span v-if="isInScale(blackKey.pitchClassNumber)" class="dot dot--small" />
+        </div>
       </div>
     </div>
   </v-sheet>
-  <div class="text-medium-emphasis text-caption mt-2">● は選択スケールに含まれるキー</div>
 </template>
 
 <script setup>
@@ -44,9 +45,7 @@ const props = defineProps({
   scales: { type: Object, required: true },
 })
 
-/** 
- * 鍵盤モデルを生成
- */
+/** 鍵盤モデルを生成 */
 const keys = computed(() =>
   // 12音 × オクターブ数
   Array.from({ length: 12 * props.octaves }, (_, i) => {
@@ -65,9 +64,7 @@ const keys = computed(() =>
 const whiteKeys = computed(() => keys.value.filter(k => !k.isBlack))
 const blackKeys = computed(() => keys.value.filter(k => k.isBlack))
 
-/** 
- * スケールに含まれるピッチクラスの集合
- */
+/** スケールに含まれるピッチクラス集合 */
 const pitchClassesInScale = computed(() => {
   // スケール名に対応するビットマスク文字列を取得
   const mask = props.scales[props.scaleName]
@@ -116,14 +113,19 @@ const blackStyleForIndex = (index) => {
 
 <style scoped>
 .keyboard {
-  --white-w: 50px;
+  --white-w: 56px;
   --white-h: 200px;
   --black-w: 34px;
   --black-h: 120px;
   position: relative;
   height: var(--white-h);
   background: linear-gradient(#fff, #fafafa);
-  overflow: hidden;
+  max-width: none !important;
+}
+
+.kbd-lane {
+  width: calc(var(--white-w) * var(--white-count));
+  position: relative;
 }
 
 /* White keys */
@@ -131,11 +133,13 @@ const blackStyleForIndex = (index) => {
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: var(--white-w);
+  width: 100%;
   height: var(--white-h);
   border: 1px solid #1f1f1f;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,.12);
 }
+
 .white-key {
   position: relative;
   background: #fff;
@@ -158,11 +162,15 @@ const blackStyleForIndex = (index) => {
 
 /* Black keys */
 .blacks {
-  position: absolute; top: 0; left: 0; width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   height: var(--black-h);
   pointer-events: none;
   z-index: 2;
 }
+
 .black-key {
   position: absolute;
   width: var(--black-w);
