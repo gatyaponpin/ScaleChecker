@@ -2,7 +2,7 @@
   <v-dialog v-model="model" max-width="720">
     <v-card>
       <v-card-title class="text-h6">
-        使い方ヘルプ
+        使い方
       </v-card-title>
 
       <v-card-text class="pt-2">
@@ -43,6 +43,5 @@ const tips = [
   '「ルート音」で基準音（C, D, E…）を選択します。',
   '「スケール」でメジャー / マイナーなどを選択します。',
   '「オクターブ」で鍵盤の表示幅を調整します。',
-  '「ラベルを表示する」をONにすると鍵盤上にノート名が表示されます。'
 ]
 </script>
